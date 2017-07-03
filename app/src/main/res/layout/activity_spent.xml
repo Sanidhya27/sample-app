@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="#ffffcc"
+    tools:context="com.example.sanidhyagarg.myapplication.addActivity">
+
+
+        <TextView
+            android:id="@+id/amountspent"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Amount :"
+            android:textColor="#000000"
+            android:padding="8dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Spent Money"
+            android:padding="8dp"
+            android:id="@+id/spentmoney"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_edittext"
+            />
+
+    <TextView
+        android:id="@+id/datetextviewspent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/amount"
+        android:text="Description :"
+        android:textColor="#000000"
+        android:padding="8dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date"
+        android:padding="8dp"
+        android:id="@+id/datespent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:background="@drawable/rounded_edittext"
+        />
+
+
+        <TextView
+            android:id="@+id/spentdescriptiontextview"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@id/amountspent"
+            android:text="Description :"
+            android:textColor="#000000"
+            android:padding="8dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add Description"
+            android:padding="8dp"
+            android:id="@+id/spentdescription"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:background="@drawable/rounded_edittext"/>
+
+
+
+</LinearLayout>
