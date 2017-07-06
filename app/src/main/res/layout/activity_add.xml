@@ -46,19 +46,33 @@
         android:textSize="20sp"
         android:padding="8dp"
         />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
+
         android:layout_height="wrap_content"
         android:hint="Date"
         android:padding="8dp"
+        android:layout_marginRight="16dp"
         android:id="@+id/dateadded"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:background="@drawable/rounded_edittext"
         />
 
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/calendar"
+            android:layout_marginBottom="2dp"
+            android:id="@+id/imageView"
+            android:onClick="setDate"
+             />
+
+</LinearLayout>
     <TextView
         android:id="@+id/description"
         android:layout_width="wrap_content"

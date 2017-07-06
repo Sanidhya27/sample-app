@@ -17,6 +17,7 @@ private cashContract()
         public final static String TABLE_NAME="addmoney";
         public final static String _ID = BaseColumns._ID;
         public final static String TYPE="type";
+        public final static String DATE="date";
         public final static String MONEY_ADDED ="amount";
         public final static String DESCRIPTION = "description";
 
@@ -26,6 +27,7 @@ private cashContract()
         public final static String TABLE_NAME="spentmoney";
         public final static String _ID = BaseColumns._ID;
         public final static String TYPE="type";
+        public final static String DATE="date";
         public final static String MONEY_SPENT ="amount";
         public final static String DESCRIPTION = "description";
 

@@ -23,6 +23,7 @@ public class spentdbhelper extends SQLiteOpenHelper{
         String SQL_CREATE_SPENT_TABLE =  "CREATE TABLE " + spententry.TABLE_NAME + " ("
                 + spententry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 +spententry.TYPE+" TEXT, "
+                +spententry.DATE+" TEXT, "
                 +spententry.MONEY_SPENT + " INTEGER NOT NULL, "
                 + spententry.DESCRIPTION + " TEXT); ";
 

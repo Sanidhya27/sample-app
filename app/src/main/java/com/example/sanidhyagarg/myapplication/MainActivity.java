@@ -9,11 +9,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import org.w3c.dom.Text;
 
@@ -27,10 +30,13 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);    //setting up
+        setContentView(R.layout.activity_main);
+        a=new adddbhelper(this);
+        Log.d("MainActivity",a.h);//setting up
+        Log.v("MainActivity","create");
 
-        TextView add =(TextView) findViewById(R.id.add);    //setting up the three textviews and their onclicklistners
-        TextView spent=(TextView) findViewById(R.id.spent);
+        ImageView add =(ImageView) findViewById(R.id.add);    //setting up the three textviews and their onclicklistners
+        ImageView spent=(ImageView) findViewById(R.id.spent);
        // TextView balance=(TextView) findViewById(R.id.balance);
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +44,7 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,addActivity.class);
                 startActivity(i);
+
 
 
             }
@@ -57,13 +64,17 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
                // Intent i=new Intent(MainActivity.this,balanceActivity.class);
            // startActivity(i);}
         //});
-        a=new adddbhelper(this);
+
         s=new spentdbhelper(this);//instantiating the adddbhelper
 
     }
     @Override
     protected void onStart() {
         Log.v("MainActivity","start");
+        TextView ap=(TextView) findViewById(R.id.addpassbook);
+        TextView sp=(TextView) findViewById(R.id.spentpassbook);
+        ap.setMovementMethod(new ScrollingMovementMethod());
+        sp.setMovementMethod(new ScrollingMovementMethod());
         super.onStart();
         displayDatabaseInfo();   //display the database
     }
@@ -74,17 +85,21 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
      */
     private void displayDatabaseInfo() {
         // Create and/or open a database to read from it
+        Log.v("MainActivity","create");
         float added,spent;
         SQLiteDatabase db = a.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
+        Log.d("MainActivity",cashContract.addentry.DATE);
         String[] projection = {
                 cashContract.addentry._ID,
                 cashContract.addentry.MONEY_ADDED,
-                cashContract.addentry.DESCRIPTION
+                cashContract.addentry.DESCRIPTION,
+                cashContract.addentry.DATE
                 };
-
+        Log.d("MainActivity",projection[0]);
+        Log.d("MainActivity",a.toString());
         // Perform a query on the pets table
         Cursor cursor = db.query(
                 cashContract.addentry.TABLE_NAME,   // The table to query
@@ -94,14 +109,14 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);                   // The sort order
-
+        Log.d("MainActivity",cursor.toString());
         TextView displayView = (TextView) findViewById(R.id.addpassbook);
-        TextView display = (TextView) findViewById(R.id.displaybalance);
+        TextView display = (TextView) findViewById(R.id.balance);
 
         try {
 
-
-            displayView.append(cashContract.addentry._ID + " - " +
+            Log.v("MainActivity","creat5e");
+            displayView.setText("\n"+cashContract.addentry._ID + " - "+cashContract.addentry.DATE +"-"+
                     cashContract.addentry.MONEY_ADDED + " - " +
                     cashContract.addentry.DESCRIPTION + "\n");
 
@@ -109,6 +124,9 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
             int idColumnIndex = cursor.getColumnIndex(cashContract.addentry._ID);
             int amountColumnIndex = cursor.getColumnIndex(cashContract.addentry.MONEY_ADDED);
             int descriptionColumnIndex = cursor.getColumnIndex(cashContract.addentry.DESCRIPTION);
+            Log.v("MainActivity","create5");
+            int dateColumnIndex= cursor.getColumnIndex(cashContract.addentry.DATE);
+            Log.v("MainActivity","create");
 
 
             // Iterate through all the returned rows in the cursor
@@ -118,9 +136,10 @@ private adddbhelper a;float bal=0;private spentdbhelper s;float bal1=0;
                 int currentID = cursor.getInt(idColumnIndex);
                float am = Float.parseFloat(cursor.getString(amountColumnIndex));
                 String description= cursor.getString(descriptionColumnIndex);
+                String date=cursor.getString(dateColumnIndex);
 bal+=am;
                 // Display the values from each column of the current row in the cursor in the TextView
-                displayView.append(("\n" + currentID + " - " +
+                displayView.append(("\n" + currentID + " - " +date+"-"+
                        am + " - " +
                         description));
             }display.setText(String.valueOf(bal));
@@ -139,7 +158,8 @@ bal+=am;
         String[] projection1 = {
                 cashContract.spententry._ID,
                 cashContract.spententry.MONEY_SPENT,
-                cashContract.spententry.DESCRIPTION
+                cashContract.spententry.DESCRIPTION,
+                cashContract.spententry.DATE
         };
 
         // Perform a query on the pets table
@@ -153,12 +173,12 @@ bal+=am;
                 null);                   // The sort order
 
         TextView displayView1 = (TextView) findViewById(R.id.spentpassbook);
-        TextView display1 = (TextView) findViewById(R.id.displaybalance);
+        TextView display1 = (TextView) findViewById(R.id.balance);
 
         try {
 
 
-            displayView1.append(cashContract.spententry._ID + " - " +
+            displayView1.setText("\n"+cashContract.spententry._ID + " - " +cashContract.spententry.DATE+"-"+
                     cashContract.spententry.MONEY_SPENT + " - " +
                     cashContract.spententry.DESCRIPTION + "\n");
 
@@ -166,6 +186,7 @@ bal+=am;
             int idColumnIndex = cursor1.getColumnIndex(cashContract.spententry._ID);
             int amountColumnIndex = cursor1.getColumnIndex(cashContract.spententry.MONEY_SPENT);
             int descriptionColumnIndex = cursor1.getColumnIndex(cashContract.spententry.DESCRIPTION);
+            int dateColumnIndex=cursor1.getColumnIndex(cashContract.spententry.DATE);
 
 
             // Iterate through all the returned rows in the cursor
@@ -175,9 +196,10 @@ bal+=am;
                 int currentID = cursor1.getInt(idColumnIndex);
                 float am = Float.parseFloat(cursor1.getString(amountColumnIndex));
                 String description= cursor1.getString(descriptionColumnIndex);
+                String date=cursor1.getString(dateColumnIndex);
                 bal1+=am;
                 // Display the values from each column of the current row in the cursor in the TextView
-                displayView1.append(("\n" + currentID + " - " +
+                displayView1.append(("\n" + currentID + " - " +date+"-"+
                         am + " - " +
                         description));
             }
